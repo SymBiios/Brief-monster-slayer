@@ -27,7 +27,7 @@ attackBtn.addEventListener("click", function (event) {
   }
   let humanAttack = Math.floor(Math.random() * 10) + 2;
   let monsterHealth = monsterHealthText.textContent;
-  monsterHealthText.textContent = monsterHealth - humanAttack;
+  monsterHealthText.textContent = Math.max(0, monsterHealth - humanAttack);
   monsterAlive();
   specialEnable(attackCount);
 });
@@ -35,8 +35,9 @@ attackBtn.addEventListener("click", function (event) {
 specialBtn.addEventListener("click", function (event) {
   let specialAttack = Math.floor(Math.random() * 20) + 15;
   let monsterHealth = monsterHealthText.textContent;
-  monsterHealthText.textContent = monsterHealth - specialAttack;
+  monsterHealthText.textContent = Math.max(0, monsterHealth - specialAttack);
   specialBtn.disabled = true;
+  attackCount = 0;
   monsterAlive();
 });
 
@@ -75,14 +76,20 @@ function resetParty() {
 function monsterAttack() {
   let monsterAttack = Math.floor(Math.random() * 10) + 10;
   let playerHealth = playerHealthText.textContent;
-  playerHealthText.textContent = playerHealth - monsterAttack;
+  playerHealthText.textContent = Math.max(0, playerHealth - monsterAttack);
 }
-
+function playerAlive() {
+  if (parseInt(playerHealthText.textContent) <= 0) {
+    alert("You Lose!");
+    resetParty();
+  }
+}
 function monsterAlive() {
-  if (monsterHealthText.content <= 0) {
+  if (parseInt(monsterHealthText.textContent) <= 0) {
     alert("You Win!!");
-    resetParty;
+    resetParty();
   } else {
     monsterAttack();
+    playerAlive();
   }
 }
