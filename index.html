@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monster Slayer</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <main class="game-container">
+      <header>
+        <h1>Monster Slayer</h1>
+      </header>
+
+      <!-- Section de démarrage -->
+      <section class="start-section" id="startSection">
+        <button class="start-btn" id="startBtn">Commencer le Combat</button>
+      </section>
+
+      <!-- Section de combat (cachée au début) -->
+      <section class="battle-section hidden" id="battleSection">
+        <!-- Informations des combattants -->
+        <section class="characters" aria-label="Combattants">
+          <article class="character player">
+            <figure
+              class="character-icon player-icon"
+              aria-label="Icône du héros"
+            >
+              🛡️
+            </figure>
+            <h2 class="character-name">Héros</h2>
+            <div class="health-container">
+              <label for="player-health-bar">Points de vie du héros</label>
+              <div
+                class="health-bar"
+                id="player-health-bar"
+                role="progressbar"
+                aria-valuenow="100"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                <div class="health-fill" id="playerHealth">
+                  <span class="health-text" id="playerHealthText">100</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <div class="vs" aria-hidden="true">VS</div>
+
+          <article class="character monster">
+            <figure
+              class="character-icon monster-icon"
+              aria-label="Icône du monstre"
+            >
+              👹
+            </figure>
+            <h2 class="character-name">Monstre</h2>
+            <div class="health-container">
+              <label for="monster-health-bar">Points de vie du monstre</label>
+              <div
+                class="health-bar"
+                id="monster-health-bar"
+                role="progressbar"
+                aria-valuenow="100"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                <div class="health-fill" id="monsterHealth">
+                  <span class="health-text" id="monsterHealthText">100</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- Interface d'actions -->
+        <nav class="action-buttons" aria-label="Actions de combat">
+          <button class="action-btn attack" id="attackBtn" type="button">
+            <span class="btn-icon" aria-hidden="true">⚔️</span>
+            Attaquer
+          </button>
+          <button class="action-btn special" id="specialBtn" type="button">
+            <span class="btn-icon" aria-hidden="true">💥</span>
+            Attaque Spéciale
+          </button>
+          <button class="action-btn heal" id="healBtn" type="button">
+            <span class="btn-icon" aria-hidden="true">💚</span>
+            Se Soigner
+          </button>
+          <button class="action-btn abandon" id="abandonBtn" type="button">
+            <span class="btn-icon" aria-hidden="true">🛡️</span>
+            Abandonner
+          </button>
+        </nav>
+
+        <!-- Journal de combat -->
+        <aside class="actions-log" aria-label="Journal de combat">
+          <header>
+            <h3>Journal de Combat</h3>
+          </header>
+          <ul
+            class="actions-list"
+            id="actionsList"
+            role="log"
+            aria-live="polite"
+            aria-relevant="additions"
+          >
+            <!-- Les actions seront ajoutées ici dynamiquement -->
+          </ul>
+        </aside>
+
+        <!-- Message de fin de partie -->
+        <dialog
+          class="game-over hidden"
+          id="gameOverMessage"
+          role="alert"
+          aria-live="assertive"
+        >
+          <!-- Message de victoire/défaite -->
+        </dialog>
+      </section>
+    </main>
+
+    <script src="javascript/main.js"></script>
+  </body>
+</html>
