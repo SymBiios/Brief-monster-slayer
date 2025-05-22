@@ -13,6 +13,7 @@ const abandonBtn = document.getElementById("abandonBtn");
 
 specialBtn.disabled = true;
 let attackCount = 0;
+let healCount = 0;
 
 startBtn.addEventListener("click", function (event) {
   startSection.classList.add("hidden");
@@ -31,12 +32,6 @@ attackBtn.addEventListener("click", function (event) {
   specialEnable(attackCount);
 });
 
-function specialEnable(attackCount) {
-  if (attackCount == 2) {
-    specialBtn.disabled = false;
-  }
-}
-
 specialBtn.addEventListener("click", function (event) {
   let specialAttack = Math.floor(Math.random() * 20) + 15;
   let monsterHealth = monsterHealthText.textContent;
@@ -47,13 +42,35 @@ specialBtn.addEventListener("click", function (event) {
 
 healBtn.addEventListener("click", function (event) {
   monsterAlive();
+  healCount++;
   let playerHealth = parseInt(playerHealthText.textContent);
   playerHealth += 50;
   playerHealthText.textContent = playerHealth;
   monsterAlive();
+  if (healCount >= 3) {
+    healBtn.disabled = true;
+  }
 });
 
-abandonBtn.addEventListener("click", function (event) {});
+abandonBtn.addEventListener("click", resetParty);
+
+function specialEnable(attackCount) {
+  if (attackCount == 2) {
+    specialBtn.disabled = false;
+  }
+}
+
+function resetParty() {
+  playerHealthText.textContent = 200;
+  monsterHealthText.textContent = 200;
+  attackCount = 0;
+  healCount = 0;
+  specialBtn.disabled = true;
+  startSection.classList.remove("hidden");
+  startBtn.classList.remove("hidden");
+  battleSection.classList.add("hidden");
+  healBtn.disabled = false;
+}
 
 function monsterAttack() {
   let monsterAttack = Math.floor(Math.random() * 10) + 10;
@@ -63,6 +80,8 @@ function monsterAttack() {
 
 function monsterAlive() {
   if (monsterHealthText.content <= 0) {
+    alert("You Win!!");
+    resetParty;
   } else {
     monsterAttack();
   }
