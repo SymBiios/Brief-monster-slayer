@@ -46,9 +46,11 @@ specialBtn.addEventListener("click", function (event) {
 });
 
 healBtn.addEventListener("click", function (event) {
-  let playerHealth = playerHealthText.value;
+  monsterAlive();
+  let playerHealth = parseInt(playerHealthText.textContent);
   playerHealth += 50;
-  playerHealthText.value = playerHealth;
+  playerHealthText.textContent = playerHealth;
+  monsterAlive();
 });
 
 abandonBtn.addEventListener("click", function (event) {});
