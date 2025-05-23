@@ -28,10 +28,11 @@ attackBtn.addEventListener("click", function (event) {
   let humanAttack = Math.floor(Math.random() * 10) + 2;
   let monsterHealth = monsterHealthText.textContent;
   monsterHealthText.textContent = Math.max(0, monsterHealth - humanAttack);
+  updateHealth();
   monsterAlive();
   specialEnable(attackCount);
   let message = `The monster has taken ${humanAttack} damages`;
-  addToList(message);
+  addToList(message, "damage-dealt");
 });
 
 specialBtn.addEventListener("click", function (event) {
@@ -41,8 +42,9 @@ specialBtn.addEventListener("click", function (event) {
   specialBtn.disabled = true;
   attackCount = 0;
   monsterAlive();
+  updateHealth();
   let message = `The monster has taken ${specialAttack} damages`;
-  addToList(message);
+  addToList(message, "damage-dealt");
 });
 
 healBtn.addEventListener("click", function (event) {
@@ -54,7 +56,8 @@ healBtn.addEventListener("click", function (event) {
   playerHealthText.textContent = playerHealth;
   let actualHeal = playerHealth - oldHealth;
   let message = `You have healed ${actualHeal} damages`;
-  addToList(message);
+  addToList(message, "healing");
+  updateHealth();
   monsterAlive();
   if (healCount >= 3) {
     healBtn.disabled = true;
@@ -63,7 +66,7 @@ healBtn.addEventListener("click", function (event) {
 
 abandonBtn.addEventListener("click", function (event) {
   let message = "You have given up";
-  addToList(message);
+  addToList(message, "neutral");
   resetParty();
 });
 
@@ -84,6 +87,8 @@ function resetParty() {
   battleSection.classList.add("hidden");
   healBtn.disabled = false;
   actionsList.innerHTML = "";
+  document.getElementById("playerHealth").style.width = "100%";
+  document.getElementById("monsterHealth").style.width = "100%";
 }
 
 function monsterAttack() {
@@ -91,7 +96,8 @@ function monsterAttack() {
   let playerHealth = playerHealthText.textContent;
   playerHealthText.textContent = Math.max(0, playerHealth - monsterAttack);
   let message = `The monster has inflicted ${monsterAttack} damages`;
-  addToList(message);
+  updateHealth();
+  addToList(message, "damage-taken");
 }
 function playerAlive() {
   if (parseInt(playerHealthText.textContent) <= 0) {
@@ -109,9 +115,21 @@ function monsterAlive() {
   }
 }
 
-function addToList(message) {
+function addToList(message, className = "") {
   const actionsList = document.getElementById("actionsList");
   const listItem = document.createElement("li");
   listItem.textContent = message;
+  if (className) {
+    listItem.classList.add(className);
+  }
   actionsList.insertBefore(listItem, actionsList.firstChild);
+}
+
+function updateHealth() {
+  let playerPercentage = (parseInt(playerHealthText.textContent) / 200) * 100;
+  let monsterPercentage = (parseInt(monsterHealthText.textContent) / 200) * 100;
+
+  document.getElementById("playerHealth").style.width = playerPercentage + "%";
+  document.getElementById("monsterHealth").style.width =
+    monsterPercentage + "%";
 }
