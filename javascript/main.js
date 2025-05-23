@@ -30,6 +30,8 @@ attackBtn.addEventListener("click", function (event) {
   monsterHealthText.textContent = Math.max(0, monsterHealth - humanAttack);
   monsterAlive();
   specialEnable(attackCount);
+  let message = `The monster has taken ${humanAttack} damages`;
+  addToList(message);
 });
 
 specialBtn.addEventListener("click", function (event) {
@@ -39,21 +41,31 @@ specialBtn.addEventListener("click", function (event) {
   specialBtn.disabled = true;
   attackCount = 0;
   monsterAlive();
+  let message = `The monster has taken ${specialAttack} damages`;
+  addToList(message);
 });
 
 healBtn.addEventListener("click", function (event) {
   monsterAlive();
   healCount++;
   let playerHealth = parseInt(playerHealthText.textContent);
-  playerHealth += 50;
+  let oldHealth = playerHealth;
+  playerHealth = Math.min(200, playerHealth + 50);
   playerHealthText.textContent = playerHealth;
+  let actualHeal = playerHealth - oldHealth;
+  let message = `You have healed ${actualHeal} damages`;
+  addToList(message);
   monsterAlive();
   if (healCount >= 3) {
     healBtn.disabled = true;
   }
 });
 
-abandonBtn.addEventListener("click", resetParty);
+abandonBtn.addEventListener("click", function (event) {
+  let message = "You have given up";
+  addToList(message);
+  resetParty();
+});
 
 function specialEnable(attackCount) {
   if (attackCount == 2) {
@@ -71,12 +83,15 @@ function resetParty() {
   startBtn.classList.remove("hidden");
   battleSection.classList.add("hidden");
   healBtn.disabled = false;
+  actionsList.innerHTML = "";
 }
 
 function monsterAttack() {
   let monsterAttack = Math.floor(Math.random() * 10) + 10;
   let playerHealth = playerHealthText.textContent;
   playerHealthText.textContent = Math.max(0, playerHealth - monsterAttack);
+  let message = `The monster has inflicted ${monsterAttack} damages`;
+  addToList(message);
 }
 function playerAlive() {
   if (parseInt(playerHealthText.textContent) <= 0) {
@@ -92,4 +107,11 @@ function monsterAlive() {
     monsterAttack();
     playerAlive();
   }
+}
+
+function addToList(message) {
+  const actionsList = document.getElementById("actionsList");
+  const listItem = document.createElement("li");
+  listItem.textContent = message;
+  actionsList.insertBefore(listItem, actionsList.firstChild);
 }
