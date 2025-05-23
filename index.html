@@ -12,14 +12,11 @@
         <h1>Monster Slayer</h1>
       </header>
 
-      <!-- Section de démarrage -->
       <section class="start-section" id="startSection">
         <button class="start-btn" id="startBtn">Commencer le Combat</button>
       </section>
 
-      <!-- Section de combat (cachée au début) -->
       <section class="battle-section hidden" id="battleSection">
-        <!-- Informations des combattants -->
         <section class="characters" aria-label="Combattants">
           <article class="character player">
             <figure
@@ -89,16 +86,14 @@
             Se Soigner
           </button>
           <button class="action-btn abandon" id="abandonBtn" type="button">
-            <span class="btn-icon" aria-hidden="true">🛡️</span>
+            <span class="btn-icon" aria-hidden="true">🏳️</span>
             Abandonner
           </button>
         </nav>
 
         <!-- Journal de combat -->
         <aside class="actions-log" aria-label="Journal de combat">
-          <header>
-            <h3>Journal de Combat</h3>
-          </header>
+          <h3>Journal de Combat</h3>
           <ul
             class="actions-list"
             id="actionsList"
@@ -109,16 +104,6 @@
             <!-- Les actions seront ajoutées ici dynamiquement -->
           </ul>
         </aside>
-
-        <!-- Message de fin de partie -->
-        <dialog
-          class="game-over hidden"
-          id="gameOverMessage"
-          role="alert"
-          aria-live="assertive"
-        >
-          <!-- Message de victoire/défaite -->
-        </dialog>
       </section>
     </main>
 
