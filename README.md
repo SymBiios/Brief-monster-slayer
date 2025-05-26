@@ -13,7 +13,7 @@ Un jeu de combat au tour par tour développé en HTML, SASS et JavaScript.
 1. Ouvrir `index.html` dans votre navigateur
 2. Pour compiler le SASS :
    ```bash
-   sass main.scss main.css --watch
+   sass stylesheets/main.scss main.css --watch
    ```
 
 ## 📁 Structure du projet
