@@ -19,7 +19,7 @@ Un jeu de combat au tour par tour développé en HTML, SASS et JavaScript.
 ## 📁 Structure du projet
 
 ```
-SymBios/
+home/
 ├── images/           # Images du jeu
 ├── javascript/       # Scripts JS
 ├── stylesheets/      # Fichiers SASS/CSS
